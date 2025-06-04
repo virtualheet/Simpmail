@@ -14,5 +14,5 @@ impl SimpMail {
         SimpMail {
             
         }
-    }
+    }   
 }
