@@ -7,13 +7,13 @@ use rand::Rng;
 use uuid::Uuid;
 
 pub mod types;
-
+pub mod error;
 pub use types::EmailKeyword;
-
+pub use error::{SimpMailError, Result};
 
 // client struct
 pub struct SimpMail {
- genrated_emails : HashMap<String, String>
+  pub genrated_emails : HashMap<String, String>
 }
 
 // main implementation
@@ -23,8 +23,6 @@ impl SimpMail {
             genrated_emails : HashMap::new()
         }
     }  
-
-
     pub fn generate_email(&mut self,keyword: EmailKeyword) -> String {
        let keywords = keyword.get_keywords();
        let selected = keywords[rand::thread_rng().gen_range(0..keywords.len())];
@@ -34,11 +32,10 @@ impl SimpMail {
 
        let token = Uuid::new_v4().to_string();
        self.genrated_emails.insert(email.clone(), token);
-
+      //  ok(email)
        email
       }
 }
-
 
 #[cfg(test)]
 mod tests {
