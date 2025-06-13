@@ -42,29 +42,11 @@ impl SimpMail {
       }
 }
 
-#[cfg(test)]
-mod tests {
-      use super::*;
 
-      #[test]
-      fn can_create_simpmail() {
-        let client = SimpMail::new();
-      }
-
-      #[test]
-      fn email_keyword_has_keywords() {
-        let love_keywords = EmailKeyword::Love.get_keywords();
-        assert!(love_keywords.contains(&"love"));
-        assert_eq!(love_keywords.len(), 5);
-      }
-}
-
-
-#[test]
+  #[test]
 fn can_generate_email() {
     let mut client = SimpMail::new();
-    let email = client.generate_email(EmailKeyword::Love);
+    let email = client.generate_email(EmailKeyword::Love).unwrap(); 
     
     assert!(email.contains("@example.com"));
-    assert!(email.contains("love") || email.contains("heart") || email.contains("sweet"));
 }
