@@ -23,8 +23,13 @@ impl SimpMail {
             genrated_emails : HashMap::new()
         }
     }  
-    pub fn generate_email(&mut self,keyword: EmailKeyword) -> String {
+    pub fn generate_email(&mut self,keyword: EmailKeyword) -> Result<String> {
        let keywords = keyword.get_keywords();
+
+       if keywords.is_empty() {
+        return Err(SimpMailError::GenerationFailed("No keywords found".to_string()));
+       }
+
        let selected = keywords[rand::thread_rng().gen_range(0..keywords.len())];
 
        let random_num: u32 = rand::thread_rng().gen_range(1000..9999);
@@ -32,8 +37,8 @@ impl SimpMail {
 
        let token = Uuid::new_v4().to_string();
        self.genrated_emails.insert(email.clone(), token);
-      //  ok(email)
-       email
+
+       Ok(email)
       }
 }
 
