@@ -5,6 +5,7 @@
 use rand::Rng;
 use std::collections::HashMap;
 use uuid::Uuid;
+use reqwest::Client;
 
 pub mod error;
 pub mod types;
@@ -13,7 +14,9 @@ pub use types::{EmailKeyword, Message, Attachment};
 
 // client struct
 pub struct RizzMail {
-    pub genrated_emails: HashMap<String, String>,
+    genrated_emails: HashMap<String, String>,
+    client: Client,  // http client
+    base_url: String,  //api base url
 }
 
 // main implementation
@@ -21,6 +24,8 @@ impl RizzMail {
     pub fn new() -> Self {
         RizzMail {
             genrated_emails: HashMap::new(),
+            client: Client::new(),
+            base_url: "https://api.example-temp-mail.com".to_string(),
         }
     }
 
