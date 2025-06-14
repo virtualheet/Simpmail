@@ -15,8 +15,21 @@ impl EmailKeyword {
             EmailKeyword::Gaming => vec!["gaming", "game", "play", "lol", "blow"],
             EmailKeyword::Work => vec!["work", "job", "career", "job", "workout"],
         }
+        
     }
 }
+
+impl std::fmt::Display for EmailKeyword {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let name = match self {
+            EmailKeyword::Love => "Love",
+            EmailKeyword::Gaming => "Gaming", 
+            EmailKeyword::Work => "Work",
+        };
+        write!(f, "{}", name)
+    }
+}
+
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Message {

@@ -20,6 +20,11 @@ pub struct RizzMail {
     base_url: String,  //api base url
 }
 
+impl Default for RizzMail {
+  fn default() -> Self {
+      Self::new()
+  }
+}
 // main implementation
 impl RizzMail {
     pub fn new() -> Self {
