@@ -1,4 +1,4 @@
-//! # RizzMail
+//! # rizzMail
 //!
 //! A temporary email management library for Rust beginners
 
@@ -61,6 +61,20 @@ impl RizzMail {
 
         Ok(email)
     }
+
+
+
+    // helper methhods
+
+    pub fn is_mail_genrated(&self, email: &str) -> bool {
+        self.genrated_emails.contains_key(email)
+    }
+
+    pub fn list_genrated_emails(&self) -> Vec<String> {
+      self.genrated_emails.keys().cloned().collect()
+    }
+
+    
 }
 
 #[test]
