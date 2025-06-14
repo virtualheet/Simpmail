@@ -70,3 +70,11 @@ fn can_generate_email() {
 
     assert!(email.contains("@example.com"));
 }
+
+#[test]
+fn can_grenrate_custom_mail () {
+  let mut client = RizzMail::new();
+  let email =  client.genrate_custom_email("custom_prefix").unwrap();
+  assert!(email.contains("@example.com"));
+
+}
