@@ -3,6 +3,22 @@
 version = 4
 
 [[package]]
+name = "RizzMail"
+version = "0.1.0"
+dependencies = [
+ "base64",
+ "chrono",
+ "rand",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "tokio",
+ "tokio-test",
+ "uuid",
+]
+
+[[package]]
 name = "addr2line"
 version = "0.24.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1028,22 +1044,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9203b8055f63a2a00e2f593bb0510367fe707d7ff1e5c872de2f537b339e5410"
 dependencies = [
  "libc",
-]
-
-[[package]]
-name = "simpmail"
-version = "0.1.0"
-dependencies = [
- "base64",
- "chrono",
- "rand",
- "reqwest",
- "serde",
- "serde_json",
- "thiserror",
- "tokio",
- "tokio-test",
- "uuid",
 ]
 
 [[package]]

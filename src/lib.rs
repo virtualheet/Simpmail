@@ -1,4 +1,4 @@
-//! # SimpMail
+//! # RizzMail
 //!
 //! A temporary email management library for Rust beginners
 
@@ -8,18 +8,18 @@ use uuid::Uuid;
 
 pub mod error;
 pub mod types;
-pub use error::{Result, SimpMailError};
+pub use error::{Result, RizzMailError};
 pub use types::EmailKeyword;
 
 // client struct
-pub struct SimpMail {
+pub struct RizzMail {
     pub genrated_emails: HashMap<String, String>,
 }
 
 // main implementation
-impl SimpMail {
+impl RizzMail {
     pub fn new() -> Self {
-        SimpMail {
+        RizzMail {
             genrated_emails: HashMap::new(),
         }
     }
@@ -29,7 +29,7 @@ impl SimpMail {
         let keywords = keyword.get_keywords();
 
         if keywords.is_empty() {
-            return Err(SimpMailError::GenerationFailed(
+            return Err(RizzMailError::GenerationFailed(
                 "No keywords found".to_string(),
             ));
         }
@@ -48,7 +48,7 @@ impl SimpMail {
     // with own prefix genrate
     pub fn genrate_custom_email(&mut self, prefix: &str) -> Result<String> {
         if prefix.is_empty() {
-            return Err(SimpMailError::GenerationFailed(
+            return Err(RizzMailError::GenerationFailed(
                 "No keywords found".to_string(),
             ));
         }
@@ -65,7 +65,7 @@ impl SimpMail {
 
 #[test]
 fn can_generate_email() {
-    let mut client = SimpMail::new();
+    let mut client = RizzMail::new();
     let email = client.generate_email(EmailKeyword::Love).unwrap();
 
     assert!(email.contains("@example.com"));

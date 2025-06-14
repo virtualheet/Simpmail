@@ -1,19 +1,19 @@
 #[derive(Debug)]
 
-pub enum SimpMailError {
+pub enum RizzMailError {
     InvalidEmail(String),
     GenerationFailed(String),
 }
 
-impl std::fmt::Display for SimpMailError {
+impl std::fmt::Display for RizzMailError {
      fn fmt (&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            SimpMailError::InvalidEmail(e) => write!(f, "Invalid email: {}", e),
-            SimpMailError::GenerationFailed(e) => write!(f, "Generation failed of email: {}", e),
+            RizzMailError::InvalidEmail(e) => write!(f, "Invalid email: {}", e),
+            RizzMailError::GenerationFailed(e) => write!(f, "Generation failed of email: {}", e),
         }
      }
 }
 
-impl std::error::Error for SimpMailError {}
+impl std::error::Error for RizzMailError {}
 
-pub type Result<T> = std::result::Result<T, SimpMailError>;
+pub type Result<T> = std::result::Result<T, RizzMailError>;

@@ -1,5 +1,5 @@
 [package]
-name = "simpmail"
+name = "RizzMail"
 version = "0.1.0"
 edition = "2021"
 authors = ["Heet Vavdiya heetvavadiya456@gmail.com"]
@@ -7,8 +7,8 @@ description = "A simple temporary email management library for Rust"
 license = "MIT OR Apache-2.0"
 keywords = ["email", "temporary", "mail", "temp", "disposable"]
 categories = ["email", "network-programming", "web-programming"]
-repository = "https://github.com/yourusername/simpmail"
-documentation = "https://docs.rs/simpmail"
+repository = "https://github.com/yourusername/RizzMail"
+documentation = "https://docs.rs/RizzMail"
 readme = "README.md"
 
 [dependencies]
