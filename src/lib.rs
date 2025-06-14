@@ -71,12 +71,22 @@ impl RizzMail {
 
     // helper methhods
 
-    pub fn is_mail_genrated(&self, email: &str) -> bool {
+    pub async fn is_mail_genrated(&self, email: &str) -> bool {
         self.genrated_emails.contains_key(email)
     }
 
-    pub fn list_genrated_emails(&self) -> Vec<String> {
+    pub async  fn list_genrated_emails(&self) -> Vec<String> {
       self.genrated_emails.keys().cloned().collect()
+    }
+
+    pub async fn get_messages(&self, email: &str) -> Result<Vec<Message>> {
+      if !self.genrated_emails.contains_key(email) {
+        return Err(RizzMailError::InvalidEmail(
+          "Email not found".to_string(),
+        ));
+      }
+
+      Ok(vec![])
     }
 
 
