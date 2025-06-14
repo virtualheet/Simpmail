@@ -109,6 +109,18 @@ impl RizzMail {
     }
 
 
+    pub async fn get_unread_messages(&self, email: &str) -> Result<Vec<Message>> {
+     let all_messages = self.get_messages(email).await?;
+
+      Ok(all_messages)
+    }
+
+    pub async fn delete_email(&mut self, email: &str) -> Result<()> {
+      self.genrated_emails.remove(email);
+      Ok(())
+    }
+
+
 }
 
 #[cfg(test)]
