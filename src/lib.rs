@@ -9,7 +9,7 @@ use uuid::Uuid;
 pub mod error;
 pub mod types;
 pub use error::{Result, RizzMailError};
-pub use types::EmailKeyword;
+pub use types::{EmailKeyword, Message, Attachment};
 
 // client struct
 pub struct RizzMail {
