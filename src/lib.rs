@@ -89,6 +89,15 @@ impl RizzMail {
       Ok(vec![])
     }
 
+    pub async fn download_attachement(&self, attachment_id: &str) -> Result<Vec<u8>> {
+      // let url = format!("{}/attachments/{}", self.base_url, attachment_id);
+      // let response = self.client.get(url).send().await?;
+      // let bytes = response.bytes().await?;
+      // Ok(bytes.to_vec())
+
+      Ok(b"dummy file content".to_vec())
+    }
+
 
 }
 
@@ -116,7 +125,7 @@ async fn can_grenrate_custom_mail () {
 #[tokio::test]
 async fn can_get_messages() {
     let mut client = RizzMail::new();
-    let email = client.generate_email(EmailKeyword::Love).await.unwrap();
+    let email: String = client.generate_email(EmailKeyword::Love).await.unwrap();
     
     let messages = client.get_messages(&email).await.unwrap();
     assert_eq!(messages.len(), 0);  // Should be empty for now
