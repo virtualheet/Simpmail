@@ -111,4 +111,26 @@ async fn can_grenrate_custom_mail () {
   assert!(email.contains("@example.com"));
 
 }
+
+
+#[tokio::test]
+async fn can_get_messages() {
+    let mut client = RizzMail::new();
+    let email = client.generate_email(EmailKeyword::Love).await.unwrap();
+    
+    let messages = client.get_messages(&email).await.unwrap();
+    assert_eq!(messages.len(), 0);  // Should be empty for now
+}
+
+
+
+
+
+
+
+
+
+
+
+
 }
