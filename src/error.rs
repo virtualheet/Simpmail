@@ -3,6 +3,7 @@
 pub enum RizzMailError {
     InvalidEmail(String),
     GenerationFailed(String),
+    IOError(String),
 }
 
 impl std::fmt::Display for RizzMailError {
@@ -10,6 +11,7 @@ impl std::fmt::Display for RizzMailError {
         match self {
             RizzMailError::InvalidEmail(e) => write!(f, "Invalid email: {}", e),
             RizzMailError::GenerationFailed(e) => write!(f, "Generation failed of email: {}", e),
+            RizzMailError::IOError(e) => write!(f, "IO error: {}", e),
         }
      }
 }

@@ -6,6 +6,7 @@ use rand::Rng;
 use std::collections::HashMap;
 use uuid::Uuid;
 use reqwest::Client;
+use std::fs;
 
 pub mod error;
 pub mod types;
@@ -96,6 +97,15 @@ impl RizzMail {
       // Ok(bytes.to_vec())
 
       Ok(b"dummy file content".to_vec())
+    }
+
+    pub async fn save_attachement(&self, attachment: &Attachment, directory: &str) -> Result<()> {
+      let data = self.download_attachement(&attachment.id).await?;
+      let path = format!("{}/{}", directory, attachment.filename);
+      fs::write(&path, data)
+            .map_err(|e| RizzMailError::GenerationFailed(format!("Failed to save: {}", e)))?;
+        
+      Ok(())
     }
 
 
