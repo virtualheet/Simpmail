@@ -153,8 +153,13 @@ async fn can_get_messages() {
     assert_eq!(messages.len(), 0);  // Should be empty for now
 }
 
-
-
+#[tokio::test]
+async fn can_delete_email() {
+  let mut client = RizzMail::new();
+  let email: String = client.generate_email(EmailKeyword::Love).await.unwrap();
+  client.delete_email(&email).await.unwrap();
+  assert!(!client.is_mail_genrated(&email).await);
+}
 
 
 
