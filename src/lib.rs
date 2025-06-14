@@ -25,7 +25,7 @@ impl RizzMail {
     }
 
     // with random genrate
-    pub fn generate_email(&mut self, keyword: EmailKeyword) -> Result<String> {
+    pub async fn generate_email(&mut self, keyword: EmailKeyword) -> Result<String> {
         let keywords = keyword.get_keywords();
 
         if keywords.is_empty() {
@@ -46,7 +46,7 @@ impl RizzMail {
     }
 
     // with own prefix genrate
-    pub fn genrate_custom_email(&mut self, prefix: &str) -> Result<String> {
+    pub async fn genrate_custom_email(&mut self, prefix: &str) -> Result<String> {
         if prefix.is_empty() {
             return Err(RizzMailError::GenerationFailed(
                 "No keywords found".to_string(),
@@ -74,21 +74,26 @@ impl RizzMail {
       self.genrated_emails.keys().cloned().collect()
     }
 
-    
+
 }
 
-#[test]
-fn can_generate_email() {
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+#[tokio::test]
+async fn can_generate_email() {
     let mut client = RizzMail::new();
-    let email = client.generate_email(EmailKeyword::Love).unwrap();
+    let email = client.generate_email(EmailKeyword::Love).await.unwrap();
 
     assert!(email.contains("@example.com"));
 }
 
-#[test]
-fn can_grenrate_custom_mail () {
+#[tokio::test]
+async fn can_grenrate_custom_mail () {
   let mut client = RizzMail::new();
-  let email =  client.genrate_custom_email("custom_prefix").unwrap();
+  let email =  client.genrate_custom_email("custom_prefix").await.unwrap();
   assert!(email.contains("@example.com"));
 
+}
 }
