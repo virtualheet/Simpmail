@@ -1,52 +1,72 @@
 //! # SimpMail
-//! 
+//!
 //! A temporary email management library for Rust beginners
 
-use std::collections::HashMap;
 use rand::Rng;
+use std::collections::HashMap;
 use uuid::Uuid;
 
-pub mod types;
 pub mod error;
+pub mod types;
+pub use error::{Result, SimpMailError};
 pub use types::EmailKeyword;
-pub use error::{SimpMailError, Result};
 
 // client struct
 pub struct SimpMail {
-  pub genrated_emails : HashMap<String, String>
+    pub genrated_emails: HashMap<String, String>,
 }
 
 // main implementation
 impl SimpMail {
     pub fn new() -> Self {
         SimpMail {
-            genrated_emails : HashMap::new()
+            genrated_emails: HashMap::new(),
         }
-    }  
-    pub fn generate_email(&mut self,keyword: EmailKeyword) -> Result<String> {
-       let keywords = keyword.get_keywords();
+    }
 
-       if keywords.is_empty() {
-        return Err(SimpMailError::GenerationFailed("No keywords found".to_string()));
-       }
+    // with random genrate
+    pub fn generate_email(&mut self, keyword: EmailKeyword) -> Result<String> {
+        let keywords = keyword.get_keywords();
 
-       let selected = keywords[rand::thread_rng().gen_range(0..keywords.len())];
+        if keywords.is_empty() {
+            return Err(SimpMailError::GenerationFailed(
+                "No keywords found".to_string(),
+            ));
+        }
 
-       let random_num: u32 = rand::thread_rng().gen_range(1000..9999);
-       let email = format!("{}{}@example.com", selected, random_num);
+        let selected = keywords[rand::thread_rng().gen_range(0..keywords.len())];
 
-       let token = Uuid::new_v4().to_string();
-       self.genrated_emails.insert(email.clone(), token);
+        let random_num: u32 = rand::thread_rng().gen_range(1000..9999);
+        let email = format!("{}{}@example.com", selected, random_num);
 
-       Ok(email)
-      }
+        let token = Uuid::new_v4().to_string();
+        self.genrated_emails.insert(email.clone(), token);
+
+        Ok(email)
+    }
+
+    // with own prefix genrate
+    pub fn genrate_custom_email(&mut self, prefix: &str) -> Result<String> {
+        if prefix.is_empty() {
+            return Err(SimpMailError::GenerationFailed(
+                "No keywords found".to_string(),
+            ));
+        }
+
+        let random_num: u32 = rand::thread_rng().gen_range(1000..9999);
+        let email = format!("{}{}@example.com", prefix, random_num);
+
+        let token = Uuid::new_v4().to_string();
+        self.genrated_emails.insert(email.clone(), token);
+
+        Ok(email)
+    }
 }
 
-
-  #[test]
+#[test]
 fn can_generate_email() {
     let mut client = SimpMail::new();
-    let email = client.generate_email(EmailKeyword::Love).unwrap(); 
-    
+    let email = client.generate_email(EmailKeyword::Love).unwrap();
+
     assert!(email.contains("@example.com"));
 }
